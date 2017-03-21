@@ -1,19 +1,20 @@
 service: new-service-name
 
+custom:
+  sample_env: sample_env
+  stage: dev
+  runtime: python2.7
+  region: eu-west-1
+
 provider:
   name: aws
-  runtime: python2.7 #
-  stage: dev
-  region: eu-west-1
-  memorySize: 128
+  runtime: ${self:custom.runtime}
+  stage: ${opt:stage, self:custom.stage}
+  region: ${env:AWS_REGION, self:custom.region}
+  memorySize: ${file(../default.yml):memorySize}
   cfLogs: true
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - "s3:ListBucket"
-      Resource: "arn:aws:dynamodb:eu-west-1:*:*"
   environment:
-    SAMPLE_ENV: sample_env
+    SAMPLE_ENV: ${self:custom.sample_env}
 
 
 functions:

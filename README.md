@@ -15,6 +15,7 @@ npm install serverless -g
 aws_access_key_id=ACCESS_KEY
 aws_secret_access_key=SECRET_KEY
 ```
+and export AWS_REGION environment variable.
 
 # Deployment
 
@@ -27,7 +28,7 @@ sls deploy
 - deploy single function:
 ```bash
 cd sample_service
-sls deploy -f read
+sls deploy function -f read
 ```
 
 - check logs:
